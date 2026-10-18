@@ -1,6 +1,9 @@
 import tkinter as tk
-from tkinter import messagebox
-from function_insert import add_requisition, calculate_total, requisition_approval
+import typing
+
+from function_insert import Requisition
+if typing.TYPE_CHECKING:
+    from function_insert import *
 
 root = tk.Tk()
 root.title("Requisition System")
@@ -20,6 +23,7 @@ date_entry = tk.Entry(root)
 item_name_entry = tk.Entry(root)
 item_price_entry = tk.Entry(root)
 
+requisition_fuction = Requisition()
 
 staff_Name_entry.grid(row=1, column=1)
 staff_id_entry.grid(row=2, column=1)
@@ -28,10 +32,10 @@ item_name_entry.grid(row=5, column=1)
 item_price_entry.grid(row=6, column=1)
 item_list = tk.Listbox(root, width=45, height=6)
 item_list.grid(row=7, column=0, columnspan=2, padx=10, pady=10)
-buttonAddRequisition = tk.Button(root, text="Add Item", width=15, command= add_requisition)
+buttonAddRequisition = tk.Button(root, text="Add Item", width=15, command= requisition_fuction.add_requisition)
 buttonAddRequisition.grid(row = 8, column = 0, padx=15, pady=10)
-buttonCalculeteTotal = tk.Button(root, text="Calculate Total", width=15, command=calculate_total)
+buttonCalculeteTotal = tk.Button(root, text="Calculate Total", width=15, command= requisition_fuction.calculate_total)
 buttonCalculeteTotal.grid(row=8, column=1, padx=15, pady=10)
-buttonCheckApproval = tk.Button(root, text="Check Approval", width=15, command=requisition_approval)
+buttonCheckApproval = tk.Button(root, text="Check Approval", width=15, command= requisition_fuction.requisition_approval)
 buttonCheckApproval.grid(row=8, column=2, padx=15, pady=10)
 root.mainloop()
