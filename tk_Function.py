@@ -1,21 +1,25 @@
+from __future__ import annotations
 import tkinter as tk
-import typing
-if typing.TYPE_CHECKING:
-    from main_Screen import staff_id_entry, date_entry, staff_Name_entry, item_name_entry, item_list, item_price_entry
+import main_Screen
 
-class Tk_function:
-
+class Tk_Function:
+    
+    main = main_Screen
     def __init__(self):
-        self.staff_id = staff_id_entry.get()
-        self.date = date_entry.get()
-        self.staff_Name = staff_Name_entry.get()
-        self.name_item = item_name_entry.get()
+        pass
+
+    def define(self):
+        self.staff_id = self.main.staff_id_entry.get()
+        self.date = self.main.date_entry.get()
+        self.staff_Name = self.main.staff_Name_entry.get()
+        self.name_item = self.main.item_name_entry.get()
+        self.price_item = self.main.item_price_entry.get()
 
     def insert_Items(self, name_item, price_item):
         item_info = [name_item, price_item]
-        item_list.insert(1, item_info)
-        item_name_entry.delete(0, tk.END)
-        item_price_entry.delete(0, tk.END)
+        self.main.item_list.insert(1, item_info)
+        self.main.item_name_entry.delete(0, tk.END)
+        self.main.item_price_entry.delete(0, tk.END)
 
 
     def tk_top(date_value, requisition_id, staff_id, staff_Name, total_items, status, approval_reference):

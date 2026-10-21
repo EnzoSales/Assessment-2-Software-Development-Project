@@ -1,55 +1,55 @@
+from __future__ import annotations
 import tkinter as tk
 from tkinter import messagebox
 from datetime import datetime
-import typing
-from tk_Function import Tk_function
-if typing.TYPE_CHECKING:
-    from main_Screen import *
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from tk_Function import Tk_Function
 
-class Requisition:
 
-    def __init__(self, values: Tk_function):
-        self.price_items = []
-        self.date = values.date
-        self.staff_id = values.staff_id
-        self.staff_Name = values.staff_Name
+
+class Requisition():
+
+    staff_id = 0
+    requisition_id = [10000]
+    def __init__(self, values):
+        print(values)
+        self.staff_id = values[0]
+        self.date = values[1]
+        self.staff_Name = values[2]
+        self.name_item = values[3]
+        self.price_item = values[4]
         self.total_items = 0
-        self.requisition_id = [10000]
         self.pattern = "%Y-%m-%d"
         self.status = "Pending"
         self.approval_reference = 0000
-        self.name_item = ""
-        self.price_item = 0
-
+    
     def empty_field(self):
-        self.define()
-        print("-------")
+        print(self.staff_id, self.date, self.staff_Name)
         if self.staff_id == "" or self.date == "" or self.staff_Name == "":
             messagebox.showerror("Empty Field", "Empty Fields!!")
             return True
-
 
     def add_requisition(self):
         empty = self.empty_field()
 
         if empty:
             return
-        self.name_item = item_name_entry.get()
         try:
-            self.price_item = float(item_price_entry.get())
+            self.price_item = float(self.price_item)
         except ValueError:
-            messagebox.showerror("Error", "Invalid value!")
+            messagebox.showerror("Error1", "Invalid value!")
             return
         if self.name_item == "":
-            messagebox.showerror("Error", "Empty Fields!!")
+            messagebox.showerror("Error2", "Empty Fields!!")
             return
 
-        Tk_function.insert_Items(self.name_item, self.price_item)
+        # tk.insert_Items(self.name_item, self.price_item)
 
     def calculate_total(self):
         self.requisition_id.append(self.requisition_id[len(self.requisition_id) - 1] + 1)
         sum = 0.0
-        for i in self.price_items:
+        for i in self.price_item:
             sum += float(i)
         if sum > 0:
             self.total_items = sum
@@ -81,10 +81,10 @@ class Requisition:
             print("Invalid format. Please use YYYY-MM-DD.")
             return
 
-        Tk_function.tk_top(date_value.date(), self.requisition_id[len(self.requisition_id) - 1], self.staff_id, self.staff_Name, self.total_items, self.status, self.approval_reference)
+        #tk.tk_top(date_value.date(), self.requisition_id[len(self.requisition_id) - 1], self.staff_id, self.staff_Name, self.total_items, self.status, self.approval_reference)
         self.clear(self.total_items, self.price_items)
 
     def clear(self):
-        item_list.delete(0, tk.END)
+        #item_list.delete(0, tk.END)
         self.total_items = 0.0
         self.price_items.clear()
